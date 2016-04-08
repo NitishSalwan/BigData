@@ -1,0 +1,7 @@
+val user1 = readLine("prompt> ")
+val user2 = readLine("prompt> ")
+val txtfile = sc.textFile("file:///usr/local/spark/bin/soc-LiveJournal1Adj.txt")
+val wrt1 =txtfile.map(l => l.split("\t")).filter(l1 => (l1.size == 2)).filter(l1 => l1(0)==user1).flatMap(l => l(1).split(","))
+val wrt2 =txtfile.map(l => l.split("\t")).filter(l1 => (l1.size == 2)).filter(l1 => l1(0)==user2).flatMap(l => l(1).split(","))
+val wrt_final= wrt1.intersection(wrt2)
+val result=user1+","+user2+"\t"+ wrt_final.collect.mkString(",")
